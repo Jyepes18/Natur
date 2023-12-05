@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="NaturModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="FacturaDetalle">
+    <Key>
+      <PropertyRef Name="Numero" />
+      <PropertyRef Name="Producto" />
+    </Key>
+    <Property Name="Numero" Type="Int32" Nullable="false" />
+    <Property Name="Producto" Type="Int32" Nullable="false" />
+    <Property Name="Cantidad" Type="Int32" />
+    <NavigationProperty Name="GestionProductos" Relationship="Self.FK__FacturaDe__Produ__4F7CD00D" FromRole="FacturaDetalle" ToRole="GestionProductos" />
+  </EntityType>
+  <EntityType Name="Facturas">
+    <Key>
+      <PropertyRef Name="Codigo" />
+    </Key>
+    <Property Name="Codigo" Type="Int32" Nullable="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Valor" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="Cantidad" Type="Int32" />
+  </EntityType>
+  <EntityType Name="GestionClientes">
+    <Key>
+      <PropertyRef Name="Documento" />
+    </Key>
+    <Property Name="Documento" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Direccion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Telefono" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="Correo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="GestionProductos">
+    <Key>
+      <PropertyRef Name="Codigo" />
+    </Key>
+    <Property Name="Codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Valor" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="Cantidad" Type="Int32" />
+    <NavigationProperty Name="FacturaDetalle" Relationship="Self.FK__FacturaDe__Produ__4F7CD00D" FromRole="GestionProductos" ToRole="FacturaDetalle" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Vendedores">
+    <Key>
+      <PropertyRef Name="Usuario" />
+    </Key>
+    <Property Name="Usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Contraseña" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="FK__FacturaDe__Produ__4F7CD00D">
+    <End Role="GestionProductos" Type="Self.GestionProductos" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="FacturaDetalle" Type="Self.FacturaDetalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GestionProductos">
+        <PropertyRef Name="Codigo" />
+      </Principal>
+      <Dependent Role="FacturaDetalle">
+        <PropertyRef Name="Producto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="NaturEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="FacturaDetalle" EntityType="Self.FacturaDetalle" />
+    <EntitySet Name="Facturas" EntityType="Self.Facturas" />
+    <EntitySet Name="GestionClientes" EntityType="Self.GestionClientes" />
+    <EntitySet Name="GestionProductos" EntityType="Self.GestionProductos" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="Vendedores" EntityType="Self.Vendedores" />
+    <AssociationSet Name="FK__FacturaDe__Produ__4F7CD00D" Association="Self.FK__FacturaDe__Produ__4F7CD00D">
+      <End Role="GestionProductos" EntitySet="GestionProductos" />
+      <End Role="FacturaDetalle" EntitySet="FacturaDetalle" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

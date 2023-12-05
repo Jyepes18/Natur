@@ -1,0 +1,47 @@
+﻿@model IEnumerable<crudNarAsp.Models.FacturaDetalle>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Bienvenido</h2>
+
+<p>
+    @Html.ActionLink("Crear", "Create", null, new { @class = "btn btn-outline-primary" })
+
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Numero)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Producto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cantidad)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Numero)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Producto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cantidad)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id = item.Numero }, new { @class = "btn btn-outline-warning" })
+            @Html.ActionLink("Informacion", "Details", new { id = item.Numero }, new { @class = "btn btn-outline-info" }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id = item.Numero }, new { @class = "btn btn-outline-danger" })
+        </td>
+    </tr>
+}
+
+</table>

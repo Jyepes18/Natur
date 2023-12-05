@@ -1,0 +1,52 @@
+﻿@model IEnumerable<crudNarAsp.Models.Facturas>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Facturas</h2>
+
+<p>
+    @Html.ActionLink("Crear nueva factura", "Create", null, new { @class = "btn btn-outline-primary" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Codigo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Valor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cantidad)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Codigo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Valor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cantidad)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new {  id=item.Codigo  }, new { @class = "btn btn-outline-warning" }) |
+            @Html.ActionLink("Informacion", "Details", new {  id=item.Codigo  }, new { @class = "btn btn-outline-info" }) |
+            @Html.ActionLink("Eliminar", "Delete", new {  id=item.Codigo  }, new { @class = "btn btn-outline-danger" })
+        </td>
+    </tr>
+}
+
+</table>
